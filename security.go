@@ -43,7 +43,7 @@ func SecureNodeId(id *krpc.ID, ip net.IP) {
 
 // Returns whether the node ID is considered secure. The id is the 20 raw
 // bytes. http://www.libtorrent.org/dht_sec.html
-func NodeIdSecure(id [20]byte, ip net.IP) bool {
+func NodeIdSecure(id [32]byte, ip net.IP) bool {
 	if isLocalNetwork(ip) {
 		return true
 	}

@@ -2,7 +2,7 @@ package bep44
 
 import (
 	"crypto/ed25519"
-	"crypto/sha1"
+	"crypto/sha256"
 
 	"github.com/anacrolix/torrent/bencode"
 )
@@ -38,7 +38,7 @@ func (i *Put) Target() Target {
 	if i.IsMutable() {
 		return MakeMutableTarget(*i.K, i.Salt)
 	} else {
-		return sha1.Sum(bencode.MustMarshal(i.V))
+		return sha256.Sum256(bencode.MustMarshal(i.V))
 	}
 }
 

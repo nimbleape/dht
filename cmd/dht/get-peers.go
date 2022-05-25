@@ -12,7 +12,7 @@ import (
 	"golang.org/x/exp/slices"
 )
 
-func GetPeers(ctx context.Context, s *dht.Server, ih [20]byte, opts ...dht.AnnounceOpt) error {
+func GetPeers(ctx context.Context, s *dht.Server, ih [32]byte, opts ...dht.AnnounceOpt) error {
 	addrs := make(map[string]int)
 	// PSA: Go sucks.
 	a, err := s.AnnounceTraversal(ih, opts...)

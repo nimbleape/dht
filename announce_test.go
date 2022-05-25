@@ -19,13 +19,13 @@ func TestAnnounceNoStartingNodes(t *testing.T) {
 	})
 	require.NoError(t, err)
 	defer s.Close()
-	var ih [20]byte
+	var ih [32]byte
 	copy(ih[:], "blah")
 	_, err = s.Announce(ih, 0, true)
 	require.EqualError(t, err, "no initial nodes")
 }
 
-func randomInfohash() (ih [20]byte) {
+func randomInfohash() (ih [32]byte) {
 	rand.Read(ih[:])
 	return
 }

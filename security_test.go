@@ -56,7 +56,7 @@ func TestDHTSec(t *testing.T) {
 	}
 }
 
-func getInsecureIp(nodeId [20]byte, ip net.IP) {
+func getInsecureIp(nodeId [32]byte, ip net.IP) {
 	for {
 		rand.Read(ip)
 		if !NodeIdSecure(nodeId, ip) {

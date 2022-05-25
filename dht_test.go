@@ -29,7 +29,7 @@ func TestSetNilBigInt(t *testing.T) {
 
 func TestMarshalCompactNodeInfo(t *testing.T) {
 	cni := krpc.CompactIPv4NodeInfo{krpc.NodeInfo{
-		ID: [20]byte{'a', 'b', 'c'},
+		ID: [32]byte{'a', 'b', 'c'},
 	}}
 	addr, err := net.ResolveUDPAddr("udp4", "1.2.3.4:5")
 	require.NoError(t, err)
@@ -132,7 +132,7 @@ func TestServerCustomNodeId(t *testing.T) {
 	idHex := "5a3ce1c14e7a08645677bbd1cfe7d8f956d53256"
 	idBytes, err := hex.DecodeString(idHex)
 	require.NoError(t, err)
-	var id [20]byte
+	var id [32]byte
 	n := copy(id[:], idBytes)
 	require.Equal(t, 20, n)
 	// How to test custom *secure* ID when tester computers will have
@@ -155,8 +155,8 @@ func TestAnnounceTimeout(t *testing.T) {
 		},
 	})
 	require.NoError(t, err)
-	var ih [20]byte
-	copy(ih[:], "12341234123412341234")
+	var ih [32]byte
+	copy(ih[:], "12341234123412341234123412341234")
 	a, err := s.Announce(ih, 0, true)
 	assert.NoError(t, err)
 	<-a.Peers
@@ -259,7 +259,7 @@ func TestBadGetPeersResponse(t *testing.T) {
 		require.NoError(t, err)
 		pc.WriteTo(b, addr)
 	}()
-	a, err := s.Announce([20]byte{}, 0, true)
+	a, err := s.Announce([32]byte{}, 0, true)
 	require.NoError(t, err)
 	// Drain the Announce until it closes.
 	for range a.Peers {

@@ -846,7 +846,7 @@ func (s *Server) addTransaction(k transactionKey, t *Transaction) {
 
 // ID returns the 20-byte server ID. This is the ID used to communicate with the
 // DHT network.
-func (s *Server) ID() [20]byte {
+func (s *Server) ID() [32]byte {
 	return s.id.AsByteArray()
 }
 

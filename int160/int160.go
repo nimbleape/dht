@@ -7,14 +7,14 @@ import (
 )
 
 type T struct {
-	bits [20]uint8
+	bits [32]uint8
 }
 
 func (me T) String() string {
 	return hex.EncodeToString(me.bits[:])
 }
 
-func (me *T) AsByteArray() [20]byte {
+func (me *T) AsByteArray() [32]byte {
 	return me.bits
 }
 
@@ -89,7 +89,7 @@ func FromBytes(b []byte) (ret T) {
 	return
 }
 
-func FromByteArray(b [20]byte) (ret T) {
+func FromByteArray(b [32]byte) (ret T) {
 	ret.SetBytes(b[:])
 	return
 }

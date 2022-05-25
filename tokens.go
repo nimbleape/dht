@@ -1,7 +1,7 @@
 package dht
 
 import (
-	"crypto/sha1"
+	"crypto/sha256"
 	"encoding/binary"
 	"time"
 
@@ -24,7 +24,7 @@ func (me tokenServer) CreateToken(addr Addr) string {
 }
 
 func (me tokenServer) createToken(addr Addr, t time.Time) string {
-	h := sha1.New()
+	h := sha256.New()
 	ip := addr.IP().To16()
 	if len(ip) != 16 {
 		panic(ip)

@@ -2,7 +2,7 @@ package getput
 
 import (
 	"context"
-	"crypto/sha1"
+	"crypto/sha256"
 	"errors"
 	"math"
 	"sync"
@@ -42,7 +42,7 @@ func startGetTraversal(
 			if r := res.Reply.R; r != nil {
 				rv := r.V
 				bv := rv
-				if sha1.Sum(bv) == target {
+				if sha256.Sum256(bv) == target {
 					select {
 					case vChan <- GetResult{
 						V:       rv,
@@ -50,7 +50,7 @@ func startGetTraversal(
 					}:
 					case <-ctx.Done():
 					}
-				} else if sha1.Sum(append(r.K[:], salt...)) == target && bep44.Verify(r.K[:], salt, *r.Seq, bv, r.Sig[:]) {
+				} else if sha256.Sum256(append(r.K[:], salt...)) == target && bep44.Verify(r.K[:], salt, *r.Seq, bv, r.Sig[:]) {
 					select {
 					case vChan <- GetResult{
 						Seq:     *r.Seq,

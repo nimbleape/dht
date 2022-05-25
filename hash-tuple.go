@@ -1,11 +1,11 @@
 package dht
 
 import (
-	"crypto/sha1"
+	"crypto/sha256"
 )
 
-func HashTuple(bs ...[]byte) (ret [20]byte) {
-	h := sha1.New()
+func HashTuple(bs ...[]byte) (ret [32]byte) {
+	h := sha256.New()
 	for _, b := range bs {
 		h.Reset()
 		h.Write(ret[:])

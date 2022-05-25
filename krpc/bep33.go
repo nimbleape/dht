@@ -1,7 +1,7 @@
 package krpc
 
 import (
-	"crypto/sha1"
+	"crypto/sha256"
 	"math"
 	"math/bits"
 	"net"
@@ -17,7 +17,7 @@ type ScrapeBloomFilter [256]byte
 // Note that if you intend for an IP to be in the IPv4 space, you might want to trim it to 4 bytes
 // with IP.To4.
 func (me *ScrapeBloomFilter) AddIp(ip net.IP) {
-	h := sha1.New()
+	h := sha256.New()
 	h.Write(ip)
 	var sum [20]byte
 	h.Sum(sum[:0])

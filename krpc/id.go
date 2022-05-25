@@ -16,7 +16,7 @@ func RandomNodeID() (id ID) {
 	return
 }
 
-type ID [20]byte
+type ID [32]byte
 
 var (
 	_ interface {
@@ -74,5 +74,5 @@ func (id ID) Int160() int160.T {
 }
 
 func (id ID) IsZero() bool {
-	return id == [20]byte{}
+	return id == [32]byte{}
 }

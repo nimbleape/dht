@@ -3,7 +3,7 @@ package dht
 import (
 	"context"
 	"crypto"
-	_ "crypto/sha1"
+	_ "crypto/sha256"
 	"errors"
 	"math/rand"
 	"net"
@@ -145,7 +145,7 @@ func RandomNodeID() (id krpc.ID) {
 }
 
 func MakeDeterministicNodeID(public net.Addr) (id krpc.ID) {
-	h := crypto.SHA1.New()
+	h := crypto.SHA256.New()
 	h.Write([]byte(public.String()))
 	h.Sum(id[:0:20])
 	SecureNodeId(&id, missinggo.AddrIP(public))

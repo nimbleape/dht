@@ -3,7 +3,7 @@ package bep44
 import (
 	"bytes"
 	"crypto/ed25519"
-	"crypto/sha1"
+	"crypto/sha256"
 	"fmt"
 	"time"
 
@@ -82,10 +82,10 @@ func NewItem(value interface{}, salt []byte, seq, cas int64, k ed25519.PrivateKe
 
 func (i *Item) Target() Target {
 	if i.IsMutable() {
-		return sha1.Sum(append(i.K[:], i.Salt...))
+		return sha256.Sum256(append(i.K[:], i.Salt...))
 	}
 
-	return sha1.Sum(bencode.MustMarshal(i.V))
+	return sha256.Sum256(bencode.MustMarshal(i.V))
 }
 
 func (i *Item) Modify(value interface{}, k ed25519.PrivateKey) bool {

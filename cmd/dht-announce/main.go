@@ -30,7 +30,7 @@ func mainErr() int {
 		Scrape bool
 		Addr   string
 		tagflag.StartPos
-		Infohash [][20]byte
+		Infohash [][32]byte
 	}{}
 	tagflag.Parse(&flags)
 	if !flags.Debug {
@@ -57,7 +57,7 @@ func mainErr() int {
 	var wg sync.WaitGroup
 	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt)
 	defer cancel()
-	addrs := make(map[[20]byte]map[string]struct{}, len(flags.Infohash))
+	addrs := make(map[[32]byte]map[string]struct{}, len(flags.Infohash))
 	for _, ih := range flags.Infohash {
 		// PSA: Go sucks.
 		a, err := s.Announce(ih, flags.Port, false, func() (ret []dht.AnnounceOpt) {
@@ -72,7 +72,7 @@ func mainErr() int {
 		}
 		wg.Add(1)
 		addrs[ih] = make(map[string]struct{})
-		go func(ih [20]byte) {
+		go func(ih [32]byte) {
 			defer wg.Done()
 			defer a.Close()
 		getPeers:
