@@ -1,4 +1,4 @@
-package int160
+package int256
 
 import (
 	"encoding/hex"

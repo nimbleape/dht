@@ -69,7 +69,7 @@ func (tbl *table) bucketIndex(id int160.T) int {
 	}
 	var a int160.T
 	a.Xor(&tbl.rootID, &id)
-	index := 160 - a.BitLen()
+	index := 256 - a.BitLen()
 	return index
 }
 
